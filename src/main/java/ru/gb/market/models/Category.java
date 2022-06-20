@@ -1,10 +1,11 @@
 package ru.gb.market.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -13,12 +14,8 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "cost")
-    private int cost;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
     public Long getId() {
         return id;
@@ -36,19 +33,11 @@ public class Product {
         this.title = title;
     }
 
-    public int getCost() {
-        return cost;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
