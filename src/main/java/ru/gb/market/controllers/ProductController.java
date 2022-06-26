@@ -34,31 +34,25 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable Long id) {
-        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product id = " + id + "not found on server"));
+    public ProductDto findById(@PathVariable Long id) {
+        return productService.findById(id).map(ProductDto::new).orElseThrow(() -> new ResourceNotFoundException("Product id = " + id + "not found on market"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto addNewProduct(@RequestBody ProductDto productDto) {
-        productService.saveOrUpdateProduct(getProductFromDto(productDto));
-        return new ProductDto(getProductFromDto(productDto));
-    }
-
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        productService.saveOrUpdateProduct(getProductFromDto(productDto));
-        return new ProductDto(getProductFromDto(productDto));
-    }
-
-    private Product getProductFromDto (ProductDto productDto) {
         Product product = new Product();
-        product.setId(productDto.getId());
         product.setTitle(productDto.getTitle());
         product.setCost(productDto.getCost());
-        Category category = categoryService.findByTitle(productDto.getCategoryTitle()).orElseThrow(() -> new ResourceNotFoundException("Category title = "+ productDto.getCategoryTitle() +" not found"));
+        Category category = categoryService.findByTitle(productDto.getCategoryTitle()).orElseThrow(() -> new ResourceNotFoundException("Category title = "+ productDto.getCategoryTitle() +" not found on market"));
         product.setCategory(category);
-        return product;
+        productService.save(product);
+        return new ProductDto(product);
+    }
+
+    @PutMapping
+    public void updateProduct(@RequestBody ProductDto productDto) {
+        productService.updateProductFromDto(productDto);
     }
 
     @DeleteMapping("/{id}")
