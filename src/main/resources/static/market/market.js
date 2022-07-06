@@ -40,8 +40,21 @@ angular.module('market-app').controller('marketController', function ($scope, $h
         $scope.getProductsPage(currentPageIndex);
     }
 
-    $scope.navToProductEditorPage = function (productId) {
+    $scope.navToProductEditor = function (productId) {
         $location.path('/product_editor/' + productId);
+    }
+
+    $scope.addToCart = function (product) {
+        $http.post(contextPath + '/cart', product)
+            .then(function successCallback(response) {
+                product = null;
+                    alert("Product added to cart successful");
+                    // $location.path('/market');
+                }, function failCallback(response) {
+                console.log(response);
+                    alert(response.data.message);
+                }
+            );
     }
 
 });

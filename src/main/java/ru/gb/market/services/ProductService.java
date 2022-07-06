@@ -36,10 +36,12 @@ public class ProductService {
 
     @Transactional
     public void updateProductFromDto (ProductDto productDto) {
-        Product product = findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Product id = " + productDto.getId() + "not found on market"));
+        Product product = findById(productDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Product id = " + productDto.getId() + "not found on market"));
         product.setTitle(productDto.getTitle());
         product.setCost(productDto.getCost());
-        Category category = categoryService.findByTitle(productDto.getCategoryTitle()).orElseThrow(() -> new ResourceNotFoundException("Category title = "+ productDto.getCategoryTitle() +" not found on market"));
+        Category category = categoryService.findByTitle(productDto.getCategoryTitle())
+                .orElseThrow(() -> new ResourceNotFoundException("Category title = "+ productDto.getCategoryTitle() +" not found on market"));
         product.setCategory(category);
     }
 

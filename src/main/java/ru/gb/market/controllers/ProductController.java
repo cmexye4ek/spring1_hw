@@ -16,8 +16,8 @@ import javax.print.attribute.standard.PrinterMessageFromOperator;
 @RestController
 @RequestMapping("api/v1/products")
 public class ProductController {
-    private ProductService productService;
-    private CategoryService categoryService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
 
     public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
