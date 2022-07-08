@@ -47,7 +47,6 @@ public class AuthController {
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
-        System.out.println(jwtTokenUtil.getRoles(token));
         String role = "USER";
         if (jwtTokenUtil.getRoles(token).contains("ROLE_ADMIN")) {
             role = "ADMIN";
