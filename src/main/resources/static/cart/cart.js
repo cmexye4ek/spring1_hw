@@ -1,4 +1,4 @@
-angular.module('market-app').controller('cartController', function ($scope, $http, $location) {
+angular.module('market-app').controller('cartController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/market/api/v1';
 
     $scope.getCartList = function () {

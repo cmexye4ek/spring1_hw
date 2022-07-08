@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<?> catchResourceNotFoundException(ResourceNotFoundException e) {
-        return new ResponseEntity<>(new ProductErrorResponce(e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new MarketError(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

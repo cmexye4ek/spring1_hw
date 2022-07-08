@@ -47,11 +47,10 @@ angular.module('market-app').controller('marketController', function ($scope, $h
     $scope.addToCart = function (product) {
         $http.post(contextPath + '/cart', product)
             .then(function successCallback(response) {
-                product = null;
+                    product = null;
                     alert("Product added to cart successful");
-                    // $location.path('/market');
                 }, function failCallback(response) {
-                console.log(response);
+                    console.log(response);
                     alert(response.data.message);
                 }
             );

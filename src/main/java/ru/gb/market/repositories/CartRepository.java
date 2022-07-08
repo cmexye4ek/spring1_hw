@@ -18,7 +18,7 @@ public class CartRepository {
 
     @PostConstruct
     public void init() {
-        this.cart = new ArrayList<>(0);
+        this.cart = new ArrayList<>();
     }
 
     public void addProductToCart(Product product) {

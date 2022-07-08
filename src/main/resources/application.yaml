@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /market
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
@@ -18,4 +20,6 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
-
+jwt:
+  secret: ruiegtbw4ep9tyu-9t5u4t0943jg0e-jgjerd9hjgoudrhgdr;kgjirejo
+  lifetime: 3600000

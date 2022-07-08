@@ -1,19 +1,19 @@
-create table categories
+CREATE TABLE categories
 (
     id    bigserial primary key,
     title varchar(255)
 );
-insert into categories (title)
+INSERT INTO categories (title)
 values ('Food');
 
-create table products
+CREATE TABLE products
 (
     id          bigserial primary key,
     title       varchar(255),
     cost        int,
     category_id bigint references categories (id)
 );
-insert into products (title, cost, category_id)
+INSERT INTO products (title, cost, category_id)
 values ('product1', 10, 1),
        ('product2', 100, 1),
        ('product3', 80, 1),
@@ -35,3 +35,67 @@ values ('product1', 10, 1),
        ('product19', 200, 1),
        ('product20', 190, 1);
 
+CREATE TABLE users
+(
+    id         bigserial primary key,
+    username   varchar(30) not null,
+    password   varchar(80) not null,
+    email      varchar(50) unique,
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
+);
+
+CREATE TABLE roles
+(
+    id   bigserial primary key,
+    name varchar(50) not null
+);
+
+CREATE TABLE privileges
+(
+    id   bigserial primary key,
+    name varchar(50) not null
+);
+
+CREATE TABLE users_roles
+(
+    user_id bigint not null references users (id),
+    role_id bigint not null references roles (id),
+    primary key (user_id, role_id)
+);
+
+CREATE TABLE roles_privileges
+(
+    role_id      bigint not null references roles (id),
+    privilege_id int    not null references privileges (id),
+    primary key (privilege_id, role_id)
+);
+
+insert into roles (name)
+values ('ROLE_USER'),
+       ('ROLE_MANAGER'),
+       ('ROLE_ADMIN');
+
+insert into privileges (name)
+values ('READ_PRIVILEGE'),
+       ('WRITE_PRIVILEGE'),
+       ('GOD_PRIVILEGE');
+
+insert into users (username, password, email)
+values ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com'),
+       ('manager', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'manager@gmail.com'),
+       ('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'admin@gmail.com');
+
+insert into roles_privileges (role_id, privilege_id)
+values (1, 1),
+       (2, 1),
+       (2, 2),
+       (3, 1),
+       (3, 2),
+       (3, 3);
+
+
+insert into users_roles (user_id, role_id)
+values (1, 1),
+       (2, 2),
+       (3, 3);
