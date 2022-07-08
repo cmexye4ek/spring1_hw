@@ -56,4 +56,16 @@ angular.module('market-app').controller('marketController', function ($scope, $h
             );
     }
 
+    $scope.deleteProduct = function (productId) {
+        $http.delete(contextPath + '/products/' + productId)
+            .then(function successCallback(response) {
+                    alert("Product deleted successful");
+                    $scope.getProductsPage()
+                }, function failCallback(response) {
+                    console.log(response);
+                    alert(response.data.message);
+                }
+            );
+    };
+
 });

@@ -50,11 +50,12 @@ angular.module('market-app').controller('indexController', function ($rootScope,
         $http.post(contextPath + '/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
+                    let jwtClaims = response.data.token.split('.')[1];
+                    $scope.decodedJwtClaims = window.atob(jwtClaims);
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.webMarketUser = {
                         username: $scope.user.username,
-                        token: response.data.token,
-                        role: response.data.role
+                        token: response.data.token
                     };
                     $scope.user.username = null;
                     $scope.user.password = null;
@@ -84,11 +85,11 @@ angular.module('market-app').controller('indexController', function ($rootScope,
     };
 
     $rootScope.isUserAdmin = function () {
-        return $rootScope.isUserLoggedIn() && $localStorage.webMarketUser.role === 'ADMIN';
+        return $rootScope.isUserLoggedIn() && $scope.decodedJwtClaims.includes("ROLE_ADMIN");
     };
 
     $rootScope.isUserManager = function () {
-        return $rootScope.isUserLoggedIn() && $localStorage.webMarketUser.role === 'MANAGER';
+        return $rootScope.isUserLoggedIn() && $scope.decodedJwtClaims.includes("ROLE_MANAGER");
     };
 
     $scope.navToRegisterPage = function () {

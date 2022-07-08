@@ -47,13 +47,7 @@ public class AuthController {
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
-        String role = "USER";
-        if (jwtTokenUtil.getRoles(token).contains("ROLE_ADMIN")) {
-            role = "ADMIN";
-        } else if (jwtTokenUtil.getRoles(token).contains("ROLE_MANAGER")) {
-            role = "MANAGER";
-        }
-        return ResponseEntity.ok(new AuthResponse(token, role));
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/register")
@@ -68,6 +62,6 @@ public class AuthController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registrationRequest.getUsername(), registrationRequest.getPassword()));
         UserDetails userDetails = userService.loadUserByUsername(registrationRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(token, "USER")); //после создания пользователя сразу генерится токен и отправляется фронту для автоматической авторизации под новым юзером
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }

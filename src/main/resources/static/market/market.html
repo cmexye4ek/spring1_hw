@@ -20,6 +20,11 @@
             </td>
             <td>
                 <div>
+                    <button type="button" ng-click="deleteProduct(product.id)" class="btn btn-primary" ng-show="isUserAdmin()">Delete</button>
+                </div>
+            </td>
+            <td>
+                <div>
                     <button type="button" ng-click="addToCart(product)" class="btn btn-primary" ng-show="isUserLoggedIn()">Add to cart</button>
                 </div>
             </td>

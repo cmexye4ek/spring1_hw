@@ -6,11 +6,10 @@ public class AuthResponse {
 
     private String token;
 
-    private String role; //примитивный способ разграничить отображение кнопок редактирования юзерам с разными ролями, без дешифровки токена на фронте.
+//    private String role; //примитивный способ разграничить отображение кнопок редактирования юзерам с разными ролями, без дешифровки токена на фронте.
 
-    public AuthResponse(String token, String role) {
+    public AuthResponse(String token) {
         this.token = token;
-        this.role = role;
     }
 
     public String getToken() {
@@ -21,11 +20,4 @@ public class AuthResponse {
         this.token = token;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
