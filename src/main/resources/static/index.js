@@ -56,7 +56,6 @@ angular.module('market-app').controller('indexController', function ($rootScope,
                         token: response.data.token,
                         role: response.data.role
                     };
-                    console.log(response.data.role)
                     $scope.user.username = null;
                     $scope.user.password = null;
                 }
@@ -81,27 +80,15 @@ angular.module('market-app').controller('indexController', function ($rootScope,
     };
 
     $rootScope.isUserLoggedIn = function () {
-        if ($localStorage.webMarketUser) {
-            return true;
-        } else {
-            return false;
-        }
+        return !!$localStorage.webMarketUser;
     };
 
     $rootScope.isUserAdmin = function () {
-        if ($rootScope.isUserLoggedIn() && $localStorage.webMarketUser.role === 'ADMIN') {
-            return true;
-        } else {
-            return false;
-        }
+        return $rootScope.isUserLoggedIn() && $localStorage.webMarketUser.role === 'ADMIN';
     };
 
     $rootScope.isUserManager = function () {
-        if ($rootScope.isUserLoggedIn() && $localStorage.webMarketUser.role === 'MANAGER') {
-            return true;
-        } else {
-            return false;
-        }
+        return $rootScope.isUserLoggedIn() && $localStorage.webMarketUser.role === 'MANAGER';
     };
 
     $scope.navToRegisterPage = function () {

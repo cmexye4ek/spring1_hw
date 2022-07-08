@@ -38,20 +38,6 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-//    @GetMapping("/auth")
-//    public ResponseEntity<?> getUserRole() {
-//        try {
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-//        } catch (BadCredentialsException ex) {
-//            return new ResponseEntity<>(new MarketError("Incorrect username or password"), HttpStatus.UNAUTHORIZED);
-//        }
-//        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-//        String token = jwtTokenUtil.generateToken(userDetails);
-//        System.out.println(ResponseEntity.ok(new AuthResponse(token)));
-//        jwtTokenUtil.getRoles(token)
-//        return ResponseEntity.ok(new AuthResponse(token));
-//    }
-
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) {
         try {
