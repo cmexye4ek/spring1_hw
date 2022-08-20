@@ -1,10 +1,12 @@
+--liquibase formatted sql
+
+--changeset author:initial_db_creation
+
 CREATE TABLE categories
 (
-    id    bigserial primary key,
+    id bigserial primary key,
     title varchar(255)
 );
-INSERT INTO categories (title)
-values ('Food');
 
 CREATE TABLE products
 (
@@ -13,27 +15,6 @@ CREATE TABLE products
     cost        int,
     category_id bigint references categories (id)
 );
-INSERT INTO products (title, cost, category_id)
-values ('product1', 10, 1),
-       ('product2', 100, 1),
-       ('product3', 80, 1),
-       ('product4', 25, 1),
-       ('product5', 15, 1),
-       ('product6', 66, 1),
-       ('product7', 66, 1),
-       ('product8', 900, 1),
-       ('product9', 400, 1),
-       ('product10', 2, 1),
-       ('product11', 500, 1),
-       ('product12', 550, 1),
-       ('product13', 120, 1),
-       ('product14', 190, 1),
-       ('product15', 78, 1),
-       ('product16', 35, 1),
-       ('product17', 700, 1),
-       ('product18', 680, 1),
-       ('product19', 200, 1),
-       ('product20', 190, 1);
 
 CREATE TABLE users
 (
@@ -71,6 +52,31 @@ CREATE TABLE roles_privileges
     primary key (privilege_id, role_id)
 );
 
+INSERT INTO categories (title)
+values ('Food');
+
+INSERT INTO products (title, cost, category_id)
+values ('product1', 10, 1),
+       ('product2', 100, 1),
+       ('product3', 80, 1),
+       ('product4', 25, 1),
+       ('product5', 15, 1),
+       ('product6', 66, 1),
+       ('product7', 66, 1),
+       ('product8', 900, 1),
+       ('product9', 400, 1),
+       ('product10', 2, 1),
+       ('product11', 500, 1),
+       ('product12', 550, 1),
+       ('product13', 120, 1),
+       ('product14', 190, 1),
+       ('product15', 78, 1),
+       ('product16', 35, 1),
+       ('product17', 700, 1),
+       ('product18', 680, 1),
+       ('product19', 200, 1),
+       ('product20', 190, 1);
+
 insert into roles (name)
 values ('ROLE_USER'),
        ('ROLE_MANAGER'),
@@ -93,7 +99,6 @@ values (1, 1),
        (3, 1),
        (3, 2),
        (3, 3);
-
 
 insert into users_roles (user_id, role_id)
 values (1, 1),
